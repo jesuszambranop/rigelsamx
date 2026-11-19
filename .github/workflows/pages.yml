@@ -1,0 +1,43 @@
+name: Validar y publicar en GitHub Pages
+on:
+  push:
+    branches: [main]
+  workflow_dispatch:
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+concurrency:
+  group: pages
+  cancel-in-progress: false
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    steps:
+      - uses: actions/checkout@v6
+      - uses: actions/setup-node@v6
+        with:
+          node-version: '22'
+      - name: Generar y revisar HTML
+        run: |
+          node scripts/build.mjs
+          node scripts/check.mjs
+          find public/api -name '*.php' -print0 | xargs -0 -n1 php -l
+          php tests/forms.php
+          node tests/http.mjs
+      - name: Preparar versión estática (sin código PHP)
+        run: |
+          mkdir -p work/pages
+          cp -R public/. work/pages/
+          rm -rf work/pages/api
+          touch work/pages/.nojekyll
+      - uses: actions/configure-pages@v5
+      - uses: actions/upload-pages-artifact@v4
+        with:
+          path: work/pages
+      - name: Publicar
+        id: deployment
+        uses: actions/deploy-pages@v4
