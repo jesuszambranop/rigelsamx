@@ -9,9 +9,9 @@ export default Object.freeze({
   address: 'Calle 62 diagonal, número 256, Jacinto Canek, Mérida, Yucatán, C.P. 97227.',
   hours: ['Lunes a viernes: 9:00–18:00. Sábado: 9:00–13:00.', 'Monday–Friday: 9:00 am–6:00 pm. Saturday: 9:00 am–1:00 pm.'],
   regions: [
+    ['México', 'https://rigelsa.com/mx/', 'mx'],
     ['Ecuador / Rigelsa.com', 'https://rigelsa.com/', 'ec'],
     ['Colombia', 'https://rigelsa.com/co/', 'co'],
-    ['Brasil', 'https://rigelsa.com.br/', 'br'],
-    ['México', 'https://rigelsa.com/mx/', 'mx']
+    ['Brasil', 'https://rigelsa.com.br/', 'br']
   ]
 });

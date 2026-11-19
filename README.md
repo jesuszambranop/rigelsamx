@@ -6,6 +6,8 @@ Web bilingüe ES/EN, catálogo M1 + S70 y formularios PHP listos para instalar e
 
 - `public/`: **todo lo que se sube a `public_html/mx/`**, incluidos `.htaccess`, `en/`, `assets/` y `api/`.
 - `src/pages.mjs`: plantillas y contenido bilingüe.
+- `src/rigel-sections.mjs`: sliders, presencia y pie de página.
+- `src/locations.mjs`: directorio internacional, con México primero.
 - `site.config.mjs`: datos de contacto y dominio canonical.
 - `scripts/`: generación, revisión de rutas y vista local.
 - `tests/forms.php`: validación y comprobación de los correos sin enviar.
@@ -15,7 +17,13 @@ Web bilingüe ES/EN, catálogo M1 + S70 y formularios PHP listos para instalar e
 
 ## Páginas
 
-Inicio, catálogo, M1, ficha técnica imprimible, S70, aplicaciones, servicio técnico, quiénes somos, blog con tres guías propias, contacto, trabaja con nosotros, privacidad, confirmación y 404. Todas en español e inglés. El selector de idioma conserva producto/material y el selector de país enlaza Ecuador (`rigelsa.com`), Colombia, Brasil y México.
+Inicio, catálogo, M1, ficha técnica imprimible, S70, aplicaciones, servicio técnico, quiénes somos con directorio internacional, preguntas frecuentes, blog con tres guías propias, contacto, trabaja con nosotros, privacidad, confirmación y 404. Todas en español e inglés. El selector de idioma conserva producto/material y el selector de país enlaza Ecuador (`rigelsa.com`), Colombia, Brasil y México.
+
+## Diseño de Rigel
+
+Títulos en Poppins Black (900), párrafos en Inter Medium (500) y tamaños basados en Rigel Colombia. Portada con tres panorámicas y segundo carrusel con seis materiales: el titular y el párrafo permanecen fijos, solo cambian las fotografías. Los controles permiten pausar, seleccionar y navegar con teclado; se respeta movimiento reducido. La altura de la portada se estabiliza según el idioma y el ancho de pantalla.
+
+“Quiénes somos” reproduce el texto y directorio de Colombia con México primero y `https://rigelsa.com/mx/`. Los mapas usan siluetas continuas de Natural Earth, sin tramas de puntos. La portada incluye el mapa local de México y Mérida. El pie conserva su color oscuro y mensaje, con los apartados y datos de Colombia adaptados a México.
 
 ## Correo
 
@@ -51,7 +59,7 @@ Los canonical y sitemap apuntan por defecto a la ubicación definitiva `https://
 
 ## Verificación y límites
 
-- `scripts/check.mjs` revisa las 34 páginas, rutas y anclas internas, idioma, metadatos, imágenes y exclusividad del catálogo.
+- `scripts/check.mjs` revisa las 36 páginas, rutas y anclas internas, idioma, metadatos, imágenes y exclusividad del catálogo.
 - `tests/forms.php` construye correos MIME sin enviarlos y verifica destinatarios, Reply-To, validación y adjuntos.
 - El envío real y la llegada a bandeja de entrada requieren el servidor cPanel, la cuenta de correo y su configuración DNS. No basta con que PHP acepte el mensaje.
 - Información técnica publicada: operación manual, TIJ, pantalla de 3.5 pulgadas, impresión de 12.7 mm y S70. Sin precios, stock, garantías, autonomía ni rendimiento inventados.
@@ -60,6 +68,6 @@ Los canonical y sitemap apuntan por defecto a la ubicación definitiva `https://
 
 ## Créditos y fuentes
 
-Logotipo y fotos originales de M1/S70: Rigel, obtenidos de `https://rigelsa.com/co/assets/` y contrastados con `https://rigelsa.com/`. Aplicaciones ilustrativas: archivos públicos de Rigel Colombia, indicados en `docs/ASSETS.md`. El adjunto de esta conversación solo contenía la referencia del encabezado; las tres escenas adicionales mencionadas en el brief no estaban adjuntas. Se utilizaron recursos disponibles de Rigel.
+Logotipo y fotos originales de M1/S70: Rigel, obtenidos de `https://rigelsa.com/co/assets/` y contrastados con `https://rigelsa.com/`. Aplicaciones ilustrativas: archivos públicos de Rigel Colombia, indicados en `docs/ASSETS.md`. El adjunto de esta conversación solo contenía la referencia del encabezado; en la revisión se incorporaron las tres panorámicas y seis imágenes de materiales de `web_mexico.rar`, suministrado por el propietario.
 
 Diseño propio inspirado en las referencias suministradas. Código y contenido de esta entrega destinados a Rigel; la publicación pública del repositorio no concede una licencia sobre su marca o fotografías. Las bibliotecas de terceros conservan sus licencias.
