@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+Disallow: /mx/api/
+Sitemap: https://rigelsa.com/mx/sitemap.xml
