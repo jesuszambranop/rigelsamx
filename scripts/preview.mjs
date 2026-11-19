@@ -2,7 +2,7 @@ import {createServer} from 'node:http';
 import {readFile,stat} from 'node:fs/promises';
 import {resolve,extname,sep} from 'node:path';
 const root=resolve(import.meta.dirname,'../public');
-const types={'.html':'text/html; charset=utf-8','.css':'text/css','.js':'application/javascript','.webp':'image/webp','.jpg':'image/jpeg','.png':'image/png','.ttf':'font/ttf','.xml':'application/xml','.txt':'text/plain'};
+const types={'.html':'text/html; charset=utf-8','.css':'text/css','.js':'application/javascript','.webp':'image/webp','.jpg':'image/jpeg','.png':'image/png','.svg':'image/svg+xml','.ttf':'font/ttf','.xml':'application/xml','.txt':'text/plain'};
 createServer(async(req,res)=>{
   let path;
   try {path=decodeURIComponent(new URL(req.url,'http://localhost').pathname).replace(/^\/(mx|rigelsamx)(\/|$)/,'/');} catch {res.writeHead(400).end();return;}

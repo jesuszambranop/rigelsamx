@@ -23,5 +23,5 @@ for (const file of files.filter(p=>extname(p)==='.html')) {
   }
   for (const m of html.matchAll(/<img\b([^>]+)>/g)) if (!/\balt="/.test(m[1])) errors.push(`${file}: imagen sin alt`);
 }
-for (const js of ['app.js','config.js']) new Function(await readFile(resolve(root,'assets',js),'utf8'));
+for (const js of ['app.js','config.js','carousels.js']) new Function(await readFile(resolve(root,'assets',js),'utf8'));
 if (errors.length) {console.error(errors.join('\n'));process.exitCode = 1;} else console.log(`OK: ${files.filter(p=>p.endsWith('.html')).length} páginas, ${links} rutas locales y JavaScript revisados.`);
