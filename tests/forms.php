@@ -18,6 +18,7 @@ foreach ([['email'=>"x@example.invalid\r\nBcc: otro@example.invalid"],['product'
 $career = ['kind'=>'careers','consent'=>'1','name'=>'Prueba Empleo','email'=>'candidato@example.invalid','city'=>'Mérida','area'=>'marketing','phone'=>'+52 999 000 0000','message'=>'Perfil de prueba para el equipo.'];
 $data=validate_submission($career);
 $tmp=tempnam(sys_get_temp_dir(),'rigel-test-');
+$docx=tempnam(sys_get_temp_dir(),'rigel-docx-');
 try {
     file_put_contents($tmp,"%PDF-1.4\n1 0 obj<</Type/Catalog>>endobj\n%%EOF\n");
     $resume=validate_resume(['name'=>'cv.pdf','tmp_name'=>$tmp,'error'=>UPLOAD_ERR_OK],false);
@@ -26,11 +27,32 @@ try {
     verify($mail->From==='ventasmexico@rigelsa.com','Remitente empleo');
     verify($mail->preSend(),'Crear correo con CV');
     verify(strpos($mail->getSentMIMEMessage(),'CV-Rigel-Mexico.pdf')!==false,'Adjunto en MIME');
+    $file=['name'=>'cv.pdf','tmp_name'=>$tmp,'error'=>0];
+    rejects(fn()=>validate_career_attachments(['resume'=>$file],'marketing',false));
+    [$cv,$portfolio]=validate_career_attachments(['resume'=>$file,'portfolio'=>$file],'marketing',false);
+    $mail=mailer_for($config,$data,$cv,$portfolio);
+    verify($mail->preSend(),'Crear postulación Marketing con dos adjuntos');
+    verify(strpos($mail->getSentMIMEMessage(),'Portafolio-Rigel-Mexico.pdf')!==false,'Portafolio adjunto');
+    rejects(fn()=>validate_career_attachments(['resume'=>$file,'portfolio'=>$file],'sales',false));
+    $zip=new ZipArchive();$zip->open($docx,ZipArchive::CREATE|ZipArchive::OVERWRITE);
+    $zip->addFromString('[Content_Types].xml','<?xml version="1.0"?><Types xmlns="http://schemas.openxmlformats.org/package/2006/content-types"><Override PartName="/word/document.xml" ContentType="application/vnd.openxmlformats-officedocument.wordprocessingml.document.main+xml"/></Types>');
+    $zip->addFromString('word/document.xml','<?xml version="1.0"?><w:document xmlns:w="http://schemas.openxmlformats.org/wordprocessingml/2006/main"><w:body><w:p><w:r><w:t>CV de prueba</w:t></w:r></w:p></w:body></w:document>');
+    $zip->close();
+    $word=validate_resume(['name'=>'cv.docx','tmp_name'=>$docx,'error'=>0],false);
+    verify($word['mime']==='application/vnd.openxmlformats-officedocument.wordprocessingml.document','DOCX validado por contenido');
+    $mail=mailer_for($config,$data,$word,$portfolio);
+    verify($mail->preSend(),'Crear MIME con DOCX y portafolio PDF');
+    verify(strpos($mail->getSentMIMEMessage(),'CV-Rigel-Mexico.docx')!==false,'CV Word adjunto');
+    rejects(fn()=>validate_attachment(['name'=>'portafolio.docx','tmp_name'=>$docx,'error'=>0],['pdf'],'Portafolio',false));
     rejects(fn()=>validate_resume(['name'=>'cv.php','tmp_name'=>$tmp,'error'=>0],false));
     file_put_contents($tmp,'No es un PDF');
     rejects(fn()=>validate_resume(['name'=>'cv.pdf','tmp_name'=>$tmp,'error'=>0],false));
+    rejects(fn()=>validate_resume(['name'=>'cv.docx','tmp_name'=>$tmp,'error'=>0],false));
+    rejects(fn()=>validate_resume(['name'=>'cv.doc','tmp_name'=>$tmp,'error'=>0],false));
     file_put_contents($tmp,str_repeat('x',5*1024*1024+1));
     rejects(fn()=>validate_resume(['name'=>'cv.pdf','tmp_name'=>$tmp,'error'=>0],false));
-} finally {unlink($tmp);}
+} finally {unlink($tmp);unlink($docx);}
+$noMessage=$career;unset($noMessage['message']);
+verify(validate_submission($noMessage)['area']==='marketing','Empleo no exige un mensaje que Colombia no solicita');
 rejects(fn()=>validate_submission(array_replace($career,['area'=>'inventada'])));
 echo "OK: $checks comprobaciones de validación, destinatarios y MIME. No se enviaron correos.\n";
