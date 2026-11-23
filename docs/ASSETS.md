@@ -45,3 +45,9 @@ Directorio y estructura institucional: https://rigelsa.com/co/quienes-somos.html
 ## Servicio técnico, 23 de noviembre de 2026
 
 Imagen suministrada por el propietario: `Despiece de impresora industrial azul.png`. Se generaron `servicio-tecnico-despiece-700.webp` y `servicio-tecnico-despiece-1200.webp`, conservando la transparencia y el encuadre completo. Se usa como ilustración del servicio técnico, sin atribuirle un modelo de producto distinto al catálogo.
+
+## Material M1 del ZIP, 23 de noviembre de 2026
+
+Archivo suministrado por el propietario: `drive-download-20261123T195219Z-1-001.zip`. Se incorporan fotografías sin alterar el equipo ni la codificación: `m1.png` → `m1-pantalla`, `m1_1.png` → `m1-caja`, `m1_2.png` → `m1-envase`, `m1_3.png` → `m1-botella`, `m1_4.png` → `m1-detalle`. Cada fotografía se optimiza a WebP de 640 y hasta 1080 px. No se incorporan las infografías del ZIP como especificaciones no verificadas.
+
+Referencia del header: https://rigelsa.com/ (Trebuchet MS, 15 px, peso 600, altura 86 px y marca 178 px en escritorio). El blog contiene redacción original en ambos idiomas; el apartado de lectura y verificación de códigos enlaza las guías oficiales de GS1, sin atribuir ensayos ni certificaciones a la M1.

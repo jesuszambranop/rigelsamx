@@ -3,7 +3,7 @@
 Fecha de última revisión: 23 de noviembre de 2026.
 
 - Generación: 36 páginas HTML (18 por idioma).
-- Revisión estática: 1.394 rutas locales, anclas, metadatos, idioma, imágenes y catálogo M1/S70 correctos.
+- Revisión estática: 1.446 rutas locales, anclas, metadatos, idioma, imágenes y catálogo M1/S70 correctos.
 - Sintaxis PHP: archivos propios y biblioteca PHPMailer sin errores.
 - Pruebas unitarias: 31 comprobaciones de validación, destinatarios, remitente, Reply-To y adjunto MIME.
 - Prueba integrada: navegador HTTP de prueba → PHP real → servidor SMTP exclusivamente local. Contacto entregado al destino de ventas y empleo al destino de RRHH, ambos capturados localmente; sin correos externos.
@@ -46,3 +46,15 @@ Pendiente únicamente en el hosting definitivo: configurar/verificar el transpor
 - 31 comprobaciones PHP y prueba HTTP → PHP → SMTP local correctas: tres mensajes capturados localmente (contacto, empleo normal y Marketing con CV y portafolio), sin envío a buzones externos. Se verifican From ventasmexico@rigelsa.com y To rrhh@rigelsa.com para empleo.
 - Rechazo de Marketing sin portafolio, archivos falsos, formatos incorrectos y archivos de más de 5 MB. DOCX validado por la estructura del contenedor Word.
 - Imagen de servicio técnico integrada con transparencia y tamaños responsive. Vista móvil de 390 px sin desbordamiento y formulario bilingüe.
+
+## Correcciones de CTA, header y blog
+
+- Un único CTA blanco por slide: «Conoce la M1» → `m1.html`; se conservan 6 segundos y círculos sin controles de pausa.
+- «Solicitar» en servicio técnico → `contacto.html?producto=soporte`, sin enlace circular ni WhatsApp adicional.
+- Ocho botones del directorio con icono SVG blanco y nombre de ciudad; sin texto WhatsApp ni punto separador.
+- Selector de país en el header y eliminación de la franja descriptiva superior. Tipografía del menú contrastada con Ecuador en estilos calculados.
+- Eliminados avisos estáticos de implementación; se conservan errores honestos al intentar enviar sin backend.
+- Tres artículos originales, bilingües, con seis secciones, tablas, índice, dos fotografías, FAQ, artículos relacionados y JSON-LD por página. Enlaces de GS1 aportan la referencia técnica sobre calidad de códigos.
+- Fotografías aportadas por el propietario: cinco imágenes en dos tamaños WebP.
+- Validación: 36 páginas y 1.446 rutas; 31 comprobaciones PHP; prueba integrada con tres mensajes capturados solo por SMTP local.
+- Revisión visual en escritorio y 390 × 844: header, selector regional, portada, blog y directorio sin desbordamiento.
