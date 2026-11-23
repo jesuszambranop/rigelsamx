@@ -18,7 +18,7 @@ Web bilingüe ES/EN, catálogo M1 + S70 y formularios PHP listos para instalar e
 
 ## Páginas
 
-Inicio, catálogo, M1, ficha técnica imprimible, S70, aplicaciones, servicio técnico, quiénes somos con directorio internacional, preguntas frecuentes, blog con tres guías propias, contacto, trabaja con nosotros, privacidad, confirmación y 404. Todas en español e inglés. El selector de idioma conserva producto/material y el selector de país enlaza Ecuador (`rigelsa.com`), Colombia, Brasil y México.
+Inicio, catálogo, M1, ficha técnica imprimible, S70, aplicaciones, servicio técnico, quiénes somos con directorio internacional, preguntas frecuentes, blog con tres artículos extensos, fotografías originales de M1, índice, tablas, preguntas frecuentes y datos estructurados BlogPosting, contacto, trabaja con nosotros, privacidad, confirmación y 404. Todas en español e inglés. El selector de idioma conserva producto/material y el selector de país enlaza Ecuador (`rigelsa.com`), Colombia, Brasil y México.
 
 ## Diseño de Rigel
 
@@ -56,7 +56,7 @@ Cambios de texto o datos: editar `src/pages.mjs` / `site.config.mjs`, generar ot
 
 Repositorio solicitado: `https://github.com/jesuszambranop/rigelsamx`.
 
-En **Settings → Pages → Source**, seleccionar **GitHub Actions**. Cada push a `main` revisa rutas, sintaxis PHP y tests, excluye por completo `api/` del artefacto público y despliega la web. GitHub Pages no ejecuta PHP: los formularios muestran explícitamente esta limitación y ofrecen correo/WhatsApp. No simulan envíos exitosos. El repositorio conserva PHP para cPanel.
+En **Settings → Pages → Source**, seleccionar **GitHub Actions**. Cada push a `main` revisa rutas, sintaxis PHP y tests, excluye por completo `api/` del artefacto público y despliega la web. GitHub Pages no ejecuta PHP: los formularios no muestran avisos de vista previa. Si se intenta enviar desde Pages, indican que no se pudo enviar y ofrecen el correo correspondiente. No simulan envíos exitosos. El repositorio conserva PHP para cPanel.
 
 Los canonical y sitemap apuntan por defecto a la ubicación definitiva `https://rigelsa.com/mx/`. Mantenerlos al publicar la vista en Pages evita tratar la vista como el sitio comercial principal. Para convertir Pages en sitio principal, cambiar `SITE_URL` en el build.
 
@@ -74,3 +74,9 @@ Los canonical y sitemap apuntan por defecto a la ubicación definitiva `https://
 Logotipo y fotos originales de M1/S70: Rigel, obtenidos de `https://rigelsa.com/co/assets/` y contrastados con `https://rigelsa.com/`. Aplicaciones ilustrativas: archivos públicos de Rigel Colombia, indicados en `docs/ASSETS.md`. El adjunto de esta conversación solo contenía la referencia del encabezado; en la revisión se incorporaron las tres panorámicas y seis imágenes de materiales de `web_mexico.rar`, suministrado por el propietario.
 
 Diseño propio inspirado en las referencias suministradas. Código y contenido de esta entrega destinados a Rigel; la publicación pública del repositorio no concede una licencia sobre su marca o fotografías. Las bibliotecas de terceros conservan sus licencias.
+
+## Revisión editorial y navegación, 23 de noviembre
+
+Header con tipografía Trebuchet MS 600 y medidas de Rigel Ecuador; títulos del contenido Poppins Black y párrafos Inter Medium. El selector de país está integrado en el header, sin franja superior. Cada slide principal tiene un único CTA blanco «Conoce la M1». Servicio técnico enlaza con «Solicitar» al formulario de contacto, con soporte preseleccionado. Los botones del directorio internacional muestran el símbolo blanco de WhatsApp y la ciudad.
+
+Los artículos bilingües se mantienen en `src/blog.mjs`; el render conserva las URLs existentes y genera HTML completo, metadatos de artículo y JSON-LD. Fotografías del ZIP del propietario optimizadas en dos tamaños. Las observaciones de implementación no forman parte de las páginas públicas.
