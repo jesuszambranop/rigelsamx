@@ -51,13 +51,25 @@
     form.elements.namedItem('csrf').value = token;
   }
   if (!isStatic) getToken().catch(() => { /* Se reintenta al enviar, sin descartar datos. */ });
-  const resume = form.elements.namedItem('resume');
-  resume?.addEventListener('change', () => {
-    const file = resume.files[0];
-    const valid = !file || (/\.pdf$/i.test(file.name) && file.size <= 5*1024*1024);
-    resume.setCustomValidity(valid ? '' : t('Adjunta un PDF de hasta 5 MB.','Attach a PDF up to 5 MB.'));
-    if (!valid) resume.reportValidity();
-  });
+  const area = form.elements.namedItem('area');
+  const portfolio = form.elements.namedItem('portfolio');
+  function syncPortfolio() {
+    if (!portfolio) return;
+    const marketing = area.value === 'marketing';
+    portfolio.closest('label').hidden = !marketing;
+    portfolio.disabled = !marketing;
+    portfolio.required = marketing;
+    if (!marketing) {portfolio.value = '';portfolio.setCustomValidity('');}
+  }
+  area?.addEventListener('change', syncPortfolio);
+  syncPortfolio();
+  form.querySelectorAll('input[type=file]').forEach(input => input.addEventListener('change', () => {
+    const file = input.files[0];
+    const extension = file?.name.match(/\.[^.]+$/)?.[0].toLowerCase();
+    const valid = !file || (file.size > 0 && file.size <= 5*1024*1024 && input.accept.split(',').includes(extension));
+    input.setCustomValidity(valid ? '' : t('Selecciona un archivo del formato indicado de hasta 5 MB.','Select a file in the specified format up to 5 MB.'));
+    if (!valid) input.reportValidity();
+  }));
   form.addEventListener('submit', async event => {
     event.preventDefault();
     if (!form.reportValidity() || button.disabled) return;
@@ -80,6 +92,7 @@
       }
       showMessage(result.message);
       form.reset();
+      syncPortfolio();
       token = ''; getToken().catch(()=>{});
     } catch (error) {
       const text = error.name === 'AbortError' ? t('El servidor tardó en responder. No podemos confirmar el envío. Antes de reintentarlo, puedes consultarnos por correo:','The server took too long to respond. We cannot confirm delivery. Before retrying, you can email us:') : error.message === 'token' || error instanceof SyntaxError || error instanceof TypeError ? t('No se pudo conectar con el formulario. Tus datos siguen aquí. Puedes escribirnos a','Could not connect to the form. Your entries are still here. You can email us at') : error.message;

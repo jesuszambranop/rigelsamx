@@ -1,14 +1,12 @@
 (() => {
   'use strict';
-  const en = document.documentElement.lang === 'en';
   const reducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)');
   document.querySelectorAll('[data-carousel]').forEach(root => {
     const slides = [...root.querySelectorAll('[data-slide]')];
     const controls = [...root.querySelectorAll('[data-target]')];
-    const pause = root.querySelector('[data-pause]');
-    if (slides.length < 2 || !pause) return;
-    let active = 0, paused = reducedMotion.matches, hovering = false, visible = false, timer;
-    const delay = Number(root.dataset.interval) || 7000;
+    if (slides.length < 2) return;
+    let active = 0, visible = false, timer;
+    const delay = Number(root.dataset.interval) || 6000;
     // Reserva la altura de la diapositiva más alta para evitar saltos al cambiar.
     function stabilizeHeight() {
       if (root.dataset.carousel !== 'hero') return;
@@ -27,15 +25,7 @@
     }
     function schedule() {
       clearTimeout(timer);
-      if (!paused && !hovering && visible && !document.hidden) timer = setTimeout(() => show(active + 1), delay);
-    }
-    function setPaused(value) {
-      paused = value;
-      pause.setAttribute('aria-pressed', String(paused));
-      pause.textContent = paused ? (en ? 'Play' : 'Reproducir') : (en ? 'Pause' : 'Pausar');
-      const subject = root.dataset.carousel === 'hero' ? (en ? 'hero images' : 'imágenes de portada') : (en ? 'material images' : 'imágenes de materiales');
-      pause.setAttribute('aria-label', (paused ? (en ? 'Play ' : 'Reproducir ') : (en ? 'Pause ' : 'Pausar ')) + subject);
-      schedule();
+      if (!reducedMotion.matches && visible && !document.hidden) timer = setTimeout(() => show(active + 1), delay);
     }
     function show(index) {
       active = (index + slides.length) % slides.length;
@@ -52,20 +42,16 @@
       }
       schedule();
     }
-    controls.forEach((control, i) => control.addEventListener('click', () => {setPaused(true);show(i);}));
-    pause.addEventListener('click', () => setPaused(!paused));
+    controls.forEach((control, i) => control.addEventListener('click', () => show(i)));
     root.addEventListener('keydown', event => {
       if (!['ArrowLeft', 'ArrowRight'].includes(event.key)) return;
-      event.preventDefault();setPaused(true);show(active + (event.key === 'ArrowRight' ? 1 : -1));controls[active].focus();
+      event.preventDefault();show(active + (event.key === 'ArrowRight' ? 1 : -1));controls[active].focus();
     });
-    root.addEventListener('mouseenter', () => {hovering = true;schedule();});
-    root.addEventListener('mouseleave', () => {hovering = false;schedule();});
-    root.addEventListener('focusin', event => {if (event.target !== pause) setPaused(true);});
     document.addEventListener('visibilitychange', schedule);
-    reducedMotion.addEventListener('change', event => {if (event.matches) setPaused(true);});
+    reducedMotion.addEventListener('change', schedule);
     const observer = new IntersectionObserver(entries => {visible = entries[0].isIntersecting;schedule();}, {threshold:.2});
     observer.observe(root);
-    setPaused(paused);show(0);
+    show(0);
     stabilizeHeight();
     document.fonts.ready.then(stabilizeHeight);
     let resizeFrame;
