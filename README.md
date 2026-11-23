@@ -8,6 +8,7 @@ Web bilingüe ES/EN, catálogo M1 + S70 y formularios PHP listos para instalar e
 - `src/pages.mjs`: plantillas y contenido bilingüe.
 - `src/rigel-sections.mjs`: sliders, presencia y pie de página.
 - `src/locations.mjs`: directorio internacional, con México primero.
+- `src/careers.mjs`: página de empleo con los mismos campos y disposición de Colombia.
 - `site.config.mjs`: datos de contacto y dominio canonical.
 - `scripts/`: generación, revisión de rutas y vista local.
 - `tests/forms.php`: validación y comprobación de los correos sin enviar.
@@ -21,9 +22,11 @@ Inicio, catálogo, M1, ficha técnica imprimible, S70, aplicaciones, servicio t�
 
 ## Diseño de Rigel
 
-Títulos en Poppins Black (900), párrafos en Inter Medium (500) y tamaños basados en Rigel Colombia. Portada con tres panorámicas y segundo carrusel con seis materiales: el titular y el párrafo permanecen fijos, solo cambian las fotografías. Los controles permiten pausar, seleccionar y navegar con teclado; se respeta movimiento reducido. La altura de la portada se estabiliza según el idioma y el ancho de pantalla.
+Títulos en Poppins Black (900), párrafos en Inter Medium (500) y tamaños basados en Rigel Colombia. Portada con tres panorámicas y segundo carrusel con seis materiales: el titular y el párrafo permanecen fijos, solo cambian las fotografías. Los indicadores circulares permiten seleccionar y navegar con teclado. No hay controles de pausa. La portada avanza cada 6 segundos y materiales cada 5.5 segundos; se respeta movimiento reducido. La altura de la portada se estabiliza según el idioma y el ancho de pantalla.
 
 “Quiénes somos” reproduce el texto y directorio de Colombia con México primero y `https://rigelsa.com/mx/`. Los mapas usan siluetas continuas de Natural Earth, sin tramas de puntos. La portada incluye el mapa local de México y Mérida. El pie conserva su color oscuro y mensaje, con los apartados y datos de Colombia adaptados a México.
+
+La imagen de despiece suministrada por el propietario se integra en servicio técnico, tanto en Inicio como en su página dedicada. “Trabaja con nosotros” está disponible en el menú principal y en el pie; no solicita un mensaje adicional y muestra el portafolio únicamente para Marketing.
 
 ## Correo
 
@@ -32,7 +35,7 @@ Títulos en Poppins Black (900), párrafos en Inter Medium (500) y tamaños basa
 | Contacto y soporte | ventasmexico@rigelsa.com | ventasmexico@rigelsa.com | Correo validado del visitante |
 | Trabaja con nosotros | ventasmexico@rigelsa.com | rrhh@rigelsa.com | Correo validado del candidato |
 
-El servidor fija los destinos; el navegador no puede elegir destinatarios. CV únicamente PDF, hasta 5 MB, con verificación de extensión, MIME y firma. Se usa PHPMailer 7.2.0 (incluido con licencia LGPL), modo `mail()` de cPanel por defecto y SMTP autenticado configurable. No se incluyen contraseñas. Ver [instalación en cPanel](docs/CPANEL.md).
+El servidor fija los destinos; el navegador no puede elegir destinatarios. CV en PDF, DOC o DOCX, hasta 5 MB. Marketing exige además un portafolio PDF de hasta 5 MB. Se validan extensión, tipo real y estructura de los adjuntos. Se usa PHPMailer 7.2.0 (incluido con licencia LGPL), modo `mail()` de cPanel por defecto y SMTP autenticado configurable. No se incluyen contraseñas. Ver [instalación en cPanel](docs/CPANEL.md).
 
 ## Desarrollo (Node 20.11+; recomendado Node 22)
 
