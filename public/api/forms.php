@@ -28,7 +28,7 @@ try {
     $config = require __DIR__.'/config.php';
     $method = $_SERVER['REQUEST_METHOD'] ?? '';
     if (!in_array($method,['GET','POST'],true)) {header('Allow: GET, POST');respond(405,['ok'=>false,'message'=>'Método no permitido.']);}
-    if ((int)($_SERVER['CONTENT_LENGTH'] ?? 0) > 7*1024*1024) respond(413,['ok'=>false,'message'=>$en?'Request too large (PDF up to 5 MB).':'Solicitud demasiado grande (PDF hasta 5 MB).']);
+    if ((int)($_SERVER['CONTENT_LENGTH'] ?? 0) > 12*1024*1024) respond(413,['ok'=>false,'message'=>$en?'Request too large (5 MB maximum per attachment).':'Solicitud demasiado grande (máximo 5 MB por adjunto).']);
     session_name('rigelmx_session');
     session_set_cookie_params(['lifetime'=>0,'path'=>rtrim(str_replace('\\','/',dirname($_SERVER['SCRIPT_NAME'] ?? '/api/forms.php')),'/').'/', 'secure'=>(!empty($_SERVER['HTTPS']) && $_SERVER['HTTPS'] !== 'off'), 'httponly'=>true, 'samesite'=>'Strict']);
     ini_set('session.use_strict_mode','1');
@@ -50,11 +50,11 @@ try {
     enforce_rate_limit($_SERVER['REMOTE_ADDR'] ?? 'unknown',$config);
     $data = validate_submission($_POST);
     $resume = null;
+    $portfolio = null;
     if ($data['kind'] === 'careers') {
-        if (!isset($_FILES['resume']) || !is_array($_FILES['resume'])) throw new FormError('Adjunta tu currículum en PDF.','Attach your résumé as a PDF.');
-        $resume = validate_resume($_FILES['resume']);
+        [$resume,$portfolio] = validate_career_attachments($_FILES,$data['area']);
     } elseif ($_FILES !== []) throw new FormError('El formulario de contacto no admite adjuntos.','The contact form does not accept attachments.');
-    $mail = mailer_for($config,$data,$resume);
+    $mail = mailer_for($config,$data,$resume,$portfolio);
     if (!$mail->send()) throw new RuntimeException('Mail not accepted');
     $_SESSION['csrf'] = bin2hex(random_bytes(32));
     session_write_close();

@@ -32,8 +32,9 @@ function validate_submission(array $input): array {
     if (($input['consent'] ?? '') !== '1') throw new FormError('Acepta la información de privacidad para enviar.', 'Accept the privacy information to submit.');
     if (field($input, 'website', 200, false) !== '') throw new FormError('No se pudo validar la solicitud.', 'Unable to validate the request.', 400);
     $data = ['kind' => $kind];
-    foreach (['name'=>100, 'email'=>150, 'city'=>100, 'message'=>3000] as $key=>$max) $data[$key] = field($input, $key, $max);
-    if (mb_strlen($data['message'],'UTF-8') < 10) throw new FormError('Describe tu consulta con al menos 10 caracteres.', 'Describe your inquiry using at least 10 characters.');
+    foreach (['name'=>100, 'email'=>150, 'city'=>100] as $key=>$max) $data[$key] = field($input, $key, $max);
+    $data['message'] = field($input,'message',3000,$kind === 'contact');
+    if ($kind === 'contact' && mb_strlen($data['message'],'UTF-8') < 10) throw new FormError('Describe tu consulta con al menos 10 caracteres.', 'Describe your inquiry using at least 10 characters.');
     if (!filter_var($data['email'], FILTER_VALIDATE_EMAIL)) throw new FormError('Ingresa un correo electrónico válido.', 'Enter a valid email address.');
     $data['phone'] = field($input,'phone',30,$kind === 'careers');
     if ($data['phone'] && !preg_match('/^[0-9+() .\-]{5,30}$/', $data['phone'])) throw new FormError('Revisa el número de teléfono.', 'Check the phone number.');
@@ -50,26 +51,58 @@ function validate_submission(array $input): array {
     return $data;
 }
 
-function validate_resume(array $file, bool $requireUploaded = true): array {
+function validate_attachment(array $file, array $allowed, string $baseName, bool $requireUploaded = true): array {
     if (($file['error'] ?? UPLOAD_ERR_NO_FILE) !== UPLOAD_ERR_OK || !isset($file['tmp_name']) || !is_string($file['tmp_name']) || !is_string($file['name'] ?? null)) {
-        throw new FormError('Adjunta tu currículum en PDF (máximo 5 MB).', 'Attach your résumé as a PDF (maximum 5 MB).');
+        throw new FormError('Adjunta los archivos obligatorios en el formato indicado (máximo 5 MB cada uno).', 'Attach the required files in the specified format (maximum 5 MB each).');
     }
     $path = $file['tmp_name'];
     if (($requireUploaded && !is_uploaded_file($path)) || !is_file($path)) throw new FormError('El archivo adjunto no es válido.', 'The attached file is invalid.');
     $size = filesize($path);
-    if ($size === false || $size < 5 || $size > 5 * 1024 * 1024) throw new FormError('El PDF debe tener un tamaño máximo de 5 MB.', 'The PDF must be no larger than 5 MB.');
+    if ($size === false || $size < 5 || $size > 5 * 1024 * 1024) throw new FormError('Cada archivo debe tener un tamaño máximo de 5 MB.', 'Each file must be no larger than 5 MB.');
+    $extension = strtolower(pathinfo($file['name'], PATHINFO_EXTENSION));
+    if (!in_array($extension,$allowed,true)) throw new FormError('Revisa el formato de los archivos adjuntos.', 'Check the attachment formats.');
     $mime = (new finfo(FILEINFO_MIME_TYPE))->file($path);
     $handle = fopen($path, 'rb');
-    $signature = $handle ? fread($handle, 5) : '';
+    $signature = $handle ? fread($handle, 8) : '';
     if ($handle) fclose($handle);
-    if (strtolower(pathinfo($file['name'], PATHINFO_EXTENSION)) !== 'pdf' || $mime !== 'application/pdf' || $signature !== '%PDF-') {
-        throw new FormError('Solo se admiten archivos PDF válidos.', 'Only valid PDF files are accepted.');
+    $valid = false;
+    if ($extension === 'pdf') {
+        $valid = $mime === 'application/pdf' && substr($signature,0,5) === '%PDF-';
+    } elseif ($extension === 'doc') {
+        $valid = $signature === hex2bin('d0cf11e0a1b11ae1') && in_array($mime,['application/msword','application/CDFV2','application/x-ole-storage','application/vnd.ms-office'],true);
+    } elseif ($extension === 'docx' && class_exists('ZipArchive')) {
+        $zip = new ZipArchive();
+        if ($zip->open($path) === true) {
+            $valid = in_array($mime,['application/zip','application/vnd.openxmlformats-officedocument.wordprocessingml.document'],true)
+                && $zip->locateName('[Content_Types].xml') !== false && $zip->locateName('word/document.xml') !== false && $zip->numFiles < 2000;
+            for ($i=0;$valid && $i<$zip->numFiles;$i++) {
+                $entry = $zip->statIndex($i);
+                if ($entry === false || $entry['size'] > 50*1024*1024 || stripos($entry['name'],'vbaProject.bin') !== false) $valid = false;
+            }
+            $zip->close();
+        }
     }
-    // Nombre fijo: no reutilizamos rutas ni nombres enviados por el visitante.
-    return ['path'=>$path, 'name'=>'CV-Rigel-Mexico.pdf'];
+    if (!$valid) throw new FormError('El archivo no corresponde a un documento válido del formato indicado.', 'The file is not a valid document in the specified format.');
+    return ['path'=>$path, 'name'=>$baseName.'.'.$extension, 'mime'=>$extension === 'docx'?'application/vnd.openxmlformats-officedocument.wordprocessingml.document':($extension === 'doc'?'application/msword':'application/pdf')];
 }
 
-function mailer_for(array $config, array $data, ?array $resume = null): PHPMailer {
+function validate_resume(array $file, bool $requireUploaded = true): array {
+    return validate_attachment($file,['pdf','doc','docx'],'CV-Rigel-Mexico',$requireUploaded);
+}
+
+function validate_career_attachments(array $files, string $area, bool $requireUploaded = true): array {
+    foreach (array_keys($files) as $key) if (!in_array($key,['resume','portfolio'],true)) throw new FormError('Adjunto no admitido.', 'Unsupported attachment.');
+    $resume = validate_resume(is_array($files['resume'] ?? null)?$files['resume']:[],$requireUploaded);
+    $portfolio = null;
+    if ($area === 'marketing') {
+        $portfolio = validate_attachment(is_array($files['portfolio'] ?? null)?$files['portfolio']:[],['pdf'],'Portafolio-Rigel-Mexico',$requireUploaded);
+    } elseif (isset($files['portfolio']) && ($files['portfolio']['error'] ?? UPLOAD_ERR_NO_FILE) !== UPLOAD_ERR_NO_FILE) {
+        throw new FormError('El portafolio corresponde al área de Marketing.', 'A portfolio is required for Marketing only.');
+    }
+    return [$resume,$portfolio];
+}
+
+function mailer_for(array $config, array $data, ?array $resume = null, ?array $portfolio = null): PHPMailer {
     $mail = new PHPMailer(true);
     $mail->CharSet = 'UTF-8';
     $mail->Timeout = 15;
@@ -102,7 +135,7 @@ function mailer_for(array $config, array $data, ?array $resume = null): PHPMaile
     foreach ($labels as $key=>$label) if (isset($data[$key]) && $data[$key] !== '') $lines[] = $label.': '.$data[$key];
     $lines[] = ''; $lines[] = 'Consentimiento de privacidad: aceptado al enviar.';
     $mail->Body = implode("\n\n", $lines);
-    if ($resume !== null) $mail->addAttachment($resume['path'],$resume['name'],'base64','application/pdf');
+    foreach ([$resume,$portfolio] as $attachment) if ($attachment !== null) $mail->addAttachment($attachment['path'],$attachment['name'],'base64',$attachment['mime'] ?? 'application/pdf');
     return $mail;
 }
 
