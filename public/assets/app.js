@@ -3,6 +3,17 @@
   const en = document.documentElement.lang === 'en';
   const t = (es, english) => en ? english : es;
   const config = window.RIGEL_CONFIG;
+  const menus = [...document.querySelectorAll('.header details')];
+  menus.forEach(menu => menu.addEventListener('toggle', () => {
+    if (menu.open) menus.forEach(other => {if (other !== menu) other.open = false;});
+  }));
+  document.addEventListener('keydown', event => {
+    if (event.key !== 'Escape') return;
+    menus.forEach(menu => {if (menu.open) {menu.open = false;menu.querySelector('summary').focus();}});
+  });
+  document.addEventListener('click', event => {
+    menus.forEach(menu => {if (menu.open && !menu.contains(event.target)) menu.open = false;});
+  });
   document.querySelectorAll('[data-region]').forEach(a => a.addEventListener('click', () => {
     document.cookie = `rigel_country=${encodeURIComponent(a.dataset.region)}; Path=/; Max-Age=31536000; SameSite=Lax${location.protocol === 'https:' ? '; Secure' : ''}`;
   }));
@@ -34,12 +45,6 @@
     const email = form.dataset.form === 'careers' ? config.careersEmail : config.email;
     const a = document.createElement('a'); a.href = `mailto:${email}`; a.textContent = email;
     status.append(' ',a);
-  }
-  if (isStatic) {
-    const notice = document.createElement('p');
-    notice.className = 'preview-note';
-    notice.textContent = t('Esta vista en GitHub Pages no envía formularios. Para contactar ahora, utiliza el correo o WhatsApp. El envío del formulario estará disponible en el sitio instalado en cPanel.','This GitHub Pages preview does not send forms. To contact us now, use email or WhatsApp. Form submission will be available on the cPanel installation.');
-    form.prepend(notice);
   }
   let token = '';
   async function getToken() {
@@ -74,7 +79,7 @@
     event.preventDefault();
     if (!form.reportValidity() || button.disabled) return;
     if (isStatic) {
-      showMessage(t('El formulario necesita la versión de cPanel. Puedes escribir directamente a','This form needs the cPanel version. You can email us directly at'),true); directEmail();
+      showMessage(t('No se pudo enviar la solicitud. Escríbenos a','Your inquiry could not be sent. Email us at'),true); directEmail();
       return;
     }
     button.disabled = true;
