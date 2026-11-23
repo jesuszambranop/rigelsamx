@@ -5,7 +5,7 @@
 1. Guarda una copia del contenido existente de `public_html/mx/`, si existe.
 2. Extrae el ZIP de cPanel dentro de `public_html/mx/`. `index.html` debe quedar directamente en esa carpeta, **no** dentro de otra carpeta `public/` o `rigelsamx/`.
 3. Activa la visualización de archivos ocultos y confirma que se subieron `public_html/mx/.htaccess`, `api/.htaccess` y `api/vendor/phpmailer/.htaccess`.
-4. Usa PHP 8.2 o superior con extensiones `mbstring`, `fileinfo`, `openssl` y `session`. Configura `upload_max_filesize=5M`, `post_max_size=7M` o superior, y `memory_limit=128M` o superior.
+4. Usa PHP 8.2 o superior con extensiones `mbstring`, `fileinfo`, `openssl`, `zip` y `session`. Configura `upload_max_filesize=5M`, `post_max_size=12M` o superior, y `memory_limit=128M` o superior.
 5. Si el sitio raíz tiene reglas de WordPress o SPA, excluye el directorio real `/mx/` antes de esas reglas. No reemplaces el `.htaccess` raíz sin revisarlo.
 6. Usa HTTPS y comprueba que las páginas español/inglés y los recursos carguen dentro de `/mx/`.
 
@@ -31,8 +31,8 @@ En **Email Deliverability**, revisa SPF y DKIM de `rigelsa.com`; comprueba aline
 
 1. Abre `/mx/api/forms.php?action=token`: debe responder JSON, sin errores PHP ni caché.
 2. Envía una consulta de prueba identificada como prueba y confirma su llegada a **ventasmexico@rigelsa.com**, From y Reply-To.
-3. Envía una postulación de prueba con un PDF sin datos personales y confirma su llegada a **rrhh@rigelsa.com**, incluido el adjunto.
-4. Comprueba que un archivo distinto de PDF y uno mayor a 5 MB se rechacen.
+3. Envía una postulación de prueba con un CV sin datos personales (PDF, DOC o DOCX) y confirma su llegada a **rrhh@rigelsa.com**, incluido el adjunto.
+4. Comprueba que el CV admita PDF, DOC o DOCX válidos, que Marketing exija un portafolio PDF y que cada archivo mayor a 5 MB o de formato inválido se rechace.
 5. Prueba el formulario en español y en inglés, y la selección de M1, S70, aplicaciones y soporte.
 6. Verifica que `/mx/api/config.php` y `/mx/api/vendor/` den 403 en Apache. El contenido de `config.local.php` no debe servirse como texto bajo ninguna circunstancia.
 7. Verifica navegación móvil, selector de país, enlaces a rigelsa.com y cambio de idioma.

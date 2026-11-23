@@ -40,3 +40,8 @@ Poppins Black (peso 900): https://github.com/google/fonts/tree/main/ofl/poppins,
 Los mapas `map-*.svg` se generaron con contornos geográficos de Natural Earth 1:110m: https://github.com/nvkelso/natural-earth-vector/blob/master/geojson/ne_110m_admin_0_countries.geojson. Natural Earth es de dominio público: https://www.naturalearthdata.com/about/terms-of-use/. Son siluetas de relleno continuo, sin patrones de puntos. El mapa local de México tiene un único pin para Mérida. No se modifica una ubicación a partir del idioma o de la IP.
 
 Directorio y estructura institucional: https://rigelsa.com/co/quienes-somos.html, adaptado con México primero y URL `https://rigelsa.com/mx/`.
+
+
+## Servicio técnico, 23 de noviembre de 2026
+
+Imagen suministrada por el propietario: `Despiece de impresora industrial azul.png`. Se generaron `servicio-tecnico-despiece-700.webp` y `servicio-tecnico-despiece-1200.webp`, conservando la transparencia y el encuadre completo. Se usa como ilustración del servicio técnico, sin atribuirle un modelo de producto distinto al catálogo.
