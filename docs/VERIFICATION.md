@@ -67,3 +67,9 @@ Pendiente únicamente en el hosting definitivo: configurar/verificar el transpor
 - Portada y catálogo con cuatro características por producto. Detalles y ficha imprimible M1 comparten 17 filas; S70 tiene tabla de cuatro filas, en ambos idiomas.
 - Verificación de escritorio y móvil 390 × 844 sin desbordamiento. Se revisan las etiquetas SVG al reducir el ancho de la página.
 - Generación y revisión estática: 36 páginas y 1.446 rutas locales correctas. No hay cambios en PHP ni en el flujo de correo.
+
+## Ajuste de mapa y portada
+
+- Eliminadas todas las líneas guía de los mapas de Latinoamérica y México. Los países conservan sus nombres negros dentro del SVG, más cerca de las siluetas y sin recuadros.
+- Solo «Soluciones para México» se centra. Los nombres, descripciones breves y enlaces M1/S70 se alinean a la izquierda, con Poppins Bold e Inter Medium.
+- Retiradas las listas de características de la portada; se conservan en el catálogo y las fichas de producto.
