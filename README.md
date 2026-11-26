@@ -7,6 +7,7 @@ Web bilingüe ES/EN, catálogo M1 + S70 y formularios PHP listos para instalar e
 - `public/`: **todo lo que se sube a `public_html/mx/`**, incluidos `.htaccess`, `en/`, `assets/` y `api/`.
 - `src/pages.mjs`: plantillas y contenido bilingüe.
 - `src/rigel-sections.mjs`: sliders, presencia y pie de página.
+- `src/products.mjs`: características y especificaciones compartidas de M1 y S70.
 - `src/locations.mjs`: directorio internacional, con México primero.
 - `src/careers.mjs`: página de empleo con los mismos campos y disposición de Colombia.
 - `site.config.mjs`: datos de contacto y dominio canonical.
@@ -22,9 +23,9 @@ Inicio, catálogo, M1, ficha técnica imprimible, S70, aplicaciones, servicio t�
 
 ## Diseño de Rigel
 
-Títulos en Poppins Black (900), párrafos en Inter Medium (500) y tamaños basados en Rigel Colombia. Portada con tres panorámicas y segundo carrusel con seis materiales: el titular y el párrafo permanecen fijos, solo cambian las fotografías. Los indicadores circulares permiten seleccionar y navegar con teclado. No hay controles de pausa. La portada avanza cada 6 segundos y materiales cada 5.5 segundos; se respeta movimiento reducido. La altura de la portada se estabiliza según el idioma y el ancho de pantalla.
+Títulos en Poppins Bold (700), encabezados pequeños en Poppins Regular (400), párrafos en Inter Medium (500) y tamaños basados en Rigel Colombia. Portada con tres panorámicas y segundo carrusel con seis materiales: el titular y el párrafo permanecen fijos, solo cambian las fotografías. Los indicadores circulares permiten seleccionar y navegar con teclado. No hay controles de pausa. La portada avanza cada 6 segundos y materiales cada 5.5 segundos; se respeta movimiento reducido. La altura de la portada se estabiliza según el idioma y el ancho de pantalla.
 
-“Quiénes somos” reproduce el texto y directorio de Colombia con México primero y `https://rigelsa.com/mx/`. Los mapas usan siluetas continuas de Natural Earth, sin tramas de puntos. La portada incluye el mapa local de México y Mérida. El pie conserva su color oscuro y mensaje, con los apartados y datos de Colombia adaptados a México.
+“Quiénes somos” reproduce el texto y directorio de Colombia con México primero y `https://rigelsa.com/mx/`. Los mapas usan siluetas continuas de Natural Earth, sin tramas de puntos. La portada incluye el mapa local de México y Mérida. El pie conserva su color oscuro y un mensaje sobre experiencia internacional y atención cercana, con los apartados y datos de Colombia adaptados a México.
 
 La imagen de despiece suministrada por el propietario se integra en servicio técnico, tanto en Inicio como en su página dedicada. “Trabaja con nosotros” está disponible en el menú principal y en el pie; no solicita un mensaje adicional y muestra el portafolio únicamente para Marketing.
 
@@ -65,8 +66,8 @@ Los canonical y sitemap apuntan por defecto a la ubicación definitiva `https://
 - `scripts/check.mjs` revisa las 36 páginas, rutas y anclas internas, idioma, metadatos, imágenes y exclusividad del catálogo.
 - `tests/forms.php` construye correos MIME sin enviarlos y verifica destinatarios, Reply-To, validación y adjuntos.
 - El envío real y la llegada a bandeja de entrada requieren el servidor cPanel, la cuenta de correo y su configuración DNS. No basta con que PHP acepte el mensaje.
-- Información técnica publicada: operación manual, TIJ, pantalla de 3.5 pulgadas, impresión de 12.7 mm y S70. Sin precios, stock, garantías, autonomía ni rendimiento inventados.
-- La ficha M1 es una página imprimible basada en estos datos; no se presenta como un manual de fábrica ni incorpora cifras adicionales sin verificar.
+- Información técnica publicada: operación manual, TIJ, pantalla de 3.5 pulgadas, impresión de 12.7 mm y S70. Características ampliadas y contrastadas con las fichas públicas de Ecuador. Sin precios, stock, garantías para México ni rendimiento inventados.
+- La ficha M1 es una página imprimible con los datos técnicos contrastados; no se presenta como un manual de fábrica.
 - No se inventaron videos, clientes ni testimonios. Las aplicaciones se identifican como ilustrativas.
 
 ## Créditos y fuentes
@@ -77,6 +78,10 @@ Diseño propio inspirado en las referencias suministradas. Código y contenido d
 
 ## Revisión editorial y navegación, 23 de noviembre
 
-Header con tipografía Trebuchet MS 600 y medidas de Rigel Ecuador; títulos del contenido Poppins Black y párrafos Inter Medium. El selector de país está integrado en el header, sin franja superior. Cada slide principal tiene un único CTA blanco «Conoce la M1». Servicio técnico enlaza con «Solicitar» al formulario de contacto, con soporte preseleccionado. Los botones del directorio internacional muestran el símbolo blanco de WhatsApp y la ciudad.
+Header con tipografía Trebuchet MS 600 y medidas de Rigel Ecuador; títulos del contenido Poppins Bold y párrafos Inter Medium. El selector de país está integrado en el header, sin franja superior. Cada slide principal tiene un único CTA blanco «Conoce la M1». Servicio técnico enlaza con «Solicitar» al formulario de contacto, con soporte preseleccionado. Los botones del directorio internacional muestran el símbolo blanco de WhatsApp y la ciudad.
 
 Los artículos bilingües se mantienen en `src/blog.mjs`; el render conserva las URLs existentes y genera HTML completo, metadatos de artículo y JSON-LD. Fotografías del ZIP del propietario optimizadas en dos tamaños. Las observaciones de implementación no forman parte de las páginas públicas.
+
+## Revisión del 26 de noviembre de 2026
+
+Poppins Bold 700 sustituye Black en todos los títulos; los textos superiores de sección usan Poppins Regular 400. Mapas con etiquetas negras integradas en el SVG, fuera de las siluetas y vinculadas al mismo sistema de coordenadas; Mérida aparece encima del pin sin recuadro HTML. Bloque de soluciones centrado y selector con «Ecuador». Los listados de portada y catálogo muestran cuatro características por producto y acceso «Ver características». M1 dispone de 17 filas de especificaciones y S70 de 4, en ambos idiomas, con datos compartidos en `src/products.mjs`.
