@@ -123,3 +123,17 @@ table{border:0;font-size:16px}th,td{border:0;border-bottom:1px solid #dde5e9;pad
 .international-page-map img{max-width:490px}
 @media(max-width:760px){.product-highlights{gap:10px 18px}.international-page-map img{max-width:410px}.footer-about p{max-width:420px}}
 @media(max-width:480px){.product-highlights li{font-size:15px}.international-page-map img{max-width:100%}}
+
+/* Contacto permanente y bloque de cotización compacto. */
+.home-product-grid{text-align:left}
+.home-product-grid p{text-align:left}
+.cta{padding-block:32px}
+.cta h2{line-height:1.18;margin-bottom:10px}
+.cta p{line-height:1.5;margin-bottom:0}
+.floating-whatsapp{position:fixed;right:calc(24px + env(safe-area-inset-right,0px));bottom:calc(24px + env(safe-area-inset-bottom,0px));z-index:45;display:grid;place-items:center;width:60px;height:60px;border:2px solid #fff;border-radius:50%;background:#25d366;box-shadow:0 5px 18px #102d3933;color:#fff}
+.floating-whatsapp:hover{background:#1ebe5d;color:#fff}
+.floating-whatsapp img{width:32px;height:32px}
+@media(max-width:760px){.cta{padding-block:28px}.cta .button{margin-top:20px}.floating-whatsapp{right:calc(18px + env(safe-area-inset-right,0px));bottom:calc(18px + env(safe-area-inset-bottom,0px));width:56px;height:56px}}
+@media print{.floating-whatsapp{display:none}}
+
+@media(min-width:761px){.rigel-footer .footer-bottom{padding-right:80px}}
