@@ -3,7 +3,7 @@
 Fecha de última revisión: 26 de noviembre de 2026.
 
 - Generación: 36 páginas HTML (18 por idioma).
-- Revisión estática: 1.446 rutas locales, anclas, metadatos, idioma, imágenes y catálogo M1/S70 correctos.
+- Revisión estática: 1.482 rutas locales, anclas, metadatos, idioma, imágenes y catálogo M1/S70 correctos.
 - Sintaxis PHP: archivos propios y biblioteca PHPMailer sin errores.
 - Pruebas unitarias: 31 comprobaciones de validación, destinatarios, remitente, Reply-To y adjunto MIME.
 - Prueba integrada: navegador HTTP de prueba → PHP real → servidor SMTP exclusivamente local. Contacto entregado al destino de ventas y empleo al destino de RRHH, ambos capturados localmente; sin correos externos.
@@ -73,3 +73,9 @@ Pendiente únicamente en el hosting definitivo: configurar/verificar el transpor
 - Eliminadas todas las líneas guía de los mapas de Latinoamérica y México. Los países conservan sus nombres negros dentro del SVG, más cerca de las siluetas y sin recuadros.
 - Solo «Soluciones para México» se centra. Los nombres, descripciones breves y enlaces M1/S70 se alinean a la izquierda, con Poppins Bold e Inter Medium.
 - Retiradas las listas de características de la portada; se conservan en el catálogo y las fichas de producto.
+
+## WhatsApp global y espaciado de contacto
+
+- Botón flotante en las 36 páginas: contacto de México, icono local, etiqueta accesible en el idioma correspondiente y apertura con `noopener noreferrer`. Se oculta al imprimir.
+- Eliminado «Tu siguiente paso» y su equivalente inglés del bloque de cotización. Separación título/párrafo de 10 px e interlineado de párrafo de 1.5.
+- Título de soluciones centrado; nombres, párrafos y enlaces de producto alineados a la izquierda.
