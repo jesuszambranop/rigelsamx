@@ -51,3 +51,11 @@ Imagen suministrada por el propietario: `Despiece de impresora industrial azul.p
 Archivo suministrado por el propietario: `drive-download-20261123T195219Z-1-001.zip`. Se incorporan fotografías sin alterar el equipo ni la codificación: `m1.png` → `m1-pantalla`, `m1_1.png` → `m1-caja`, `m1_2.png` → `m1-envase`, `m1_3.png` → `m1-botella`, `m1_4.png` → `m1-detalle`. Cada fotografía se optimiza a WebP de 640 y hasta 1080 px. No se incorporan las infografías del ZIP como especificaciones no verificadas.
 
 Referencia del header: https://rigelsa.com/ (Trebuchet MS, 15 px, peso 600, altura 86 px y marca 178 px en escritorio). El blog contiene redacción original en ambos idiomas; el apartado de lectura y verificación de códigos enlaza las guías oficiales de GS1, sin atribuir ensayos ni certificaciones a la M1.
+
+## Tipografía y fichas, 26 de noviembre de 2026
+
+Poppins Bold 700 y Regular 400 descargadas del repositorio oficial de Google Fonts: https://github.com/google/fonts/tree/main/ofl/poppins. Reutilizan la licencia OFL incluida. Black queda como recurso histórico sin uso en las páginas actuales.
+
+Datos técnicos contrastados con https://rigelsa.com/productos/m1?lang=es y https://rigelsa.com/productos/s70?lang=es el 26 de noviembre. Se incluyen las características físicas de los productos, sin trasladar garantías, colores disponibles ni contenido del kit entre mercados.
+
+Los textos y líneas guía de los mapas se guardan dentro de los SVG, con un único `viewBox` para geometría y etiquetas. Se elimina la etiqueta HTML superpuesta de Mérida.

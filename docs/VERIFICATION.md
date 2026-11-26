@@ -1,6 +1,6 @@
 # Verificación de entrega
 
-Fecha de última revisión: 23 de noviembre de 2026.
+Fecha de última revisión: 26 de noviembre de 2026.
 
 - Generación: 36 páginas HTML (18 por idioma).
 - Revisión estática: 1.446 rutas locales, anclas, metadatos, idioma, imágenes y catálogo M1/S70 correctos.
@@ -58,3 +58,12 @@ Pendiente únicamente en el hosting definitivo: configurar/verificar el transpor
 - Fotografías aportadas por el propietario: cinco imágenes en dos tamaños WebP.
 - Validación: 36 páginas y 1.446 rutas; 31 comprobaciones PHP; prueba integrada con tres mensajes capturados solo por SMTP local.
 - Revisión visual en escritorio y 390 × 844: header, selector regional, portada, blog y directorio sin desbordamiento.
+
+## Correcciones del 26 de noviembre
+
+- Títulos Poppins Bold 700 y textos pequeños superiores Poppins Regular 400; pesos comprobados en estilos calculados. Archivos TTF verificados con sus nombres de familia y estilo.
+- Mérida fuera de la silueta, encima del pin, sin recuadro. Seis países con etiquetas negras exteriores, líneas guía y coordenadas comunes con el mapa.
+- Bloque de soluciones y sus textos centrados; footer con mensaje de experiencia internacional y atención cercana; selector «Ecuador».
+- Portada y catálogo con cuatro características por producto. Detalles y ficha imprimible M1 comparten 17 filas; S70 tiene tabla de cuatro filas, en ambos idiomas.
+- Verificación de escritorio y móvil 390 × 844 sin desbordamiento. Se revisan las etiquetas SVG al reducir el ancho de la página.
+- Generación y revisión estática: 36 páginas y 1.446 rutas locales correctas. No hay cambios en PHP ni en el flujo de correo.
