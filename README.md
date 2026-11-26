@@ -85,3 +85,7 @@ Los artículos bilingües se mantienen en `src/blog.mjs`; el render conserva las
 ## Revisión del 26 de noviembre de 2026
 
 Poppins Bold 700 sustituye Black en todos los títulos; los textos superiores de sección usan Poppins Regular 400. Mapas con etiquetas negras integradas en el SVG, próximas a las siluetas, sin líneas de unión y vinculadas al mismo sistema de coordenadas; Mérida aparece encima del pin sin recuadro HTML. Solo el título del bloque de soluciones está centrado; los textos de cada producto están alineados a la izquierda, con descripción breve y enlace «Conocer». El catálogo muestra cuatro características por producto y acceso «Ver características». El selector muestra «Ecuador». M1 dispone de 17 filas de especificaciones y S70 de 4, en ambos idiomas, con datos compartidos en `src/products.mjs`.
+
+## Contacto flotante
+
+Todas las páginas, incluidas las versiones inglesas, tienen un botón fijo de WhatsApp abajo a la derecha que abre el contacto de México (+52 999 635 1998). Es un enlace HTML accesible con icono local, sin depender de JavaScript. El bloque de cotización comienza directamente con «Hablemos de tu producto», sin texto superior, y tiene menor separación entre título y párrafo. Solo el título del bloque de soluciones está centrado; las descripciones están explícitamente alineadas a la izquierda.
