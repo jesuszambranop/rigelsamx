@@ -7,29 +7,16 @@
     if (slides.length < 2) return;
     let active = 0, visible = false, timer;
     const delay = Number(root.dataset.interval) || 6000;
-    // Reserva la altura de la diapositiva más alta para evitar saltos al cambiar.
-    function stabilizeHeight() {
-      if (root.dataset.carousel !== 'hero') return;
-      root.style.removeProperty('--hero-stage-height');
-      let height = 0;
-      for (const slide of slides) {
-        const hidden = slide.hidden;
-        const style = slide.getAttribute('style');
-        slide.hidden = false;
-        Object.assign(slide.style,{position:'absolute',visibility:'hidden',width:'100%'});
-        height = Math.max(height, slide.getBoundingClientRect().height);
-        slide.hidden = hidden;
-        if (style === null) slide.removeAttribute('style'); else slide.setAttribute('style',style);
-      }
-      root.style.setProperty('--hero-stage-height',Math.ceil(height)+'px');
-    }
     function schedule() {
       clearTimeout(timer);
       if (!reducedMotion.matches && visible && !document.hidden) timer = setTimeout(() => show(active + 1), delay);
     }
     function show(index) {
       active = (index + slides.length) % slides.length;
-      slides.forEach((slide, i) => {slide.hidden = i !== active;});
+      slides.forEach((slide, i) => {
+        slide.hidden = i !== active;
+        slide.inert = i !== active;
+      });
       controls.forEach((control, i) => control.setAttribute('aria-pressed', String(i === active)));
       root.dataset.activeIndex = String(active);
       if (root.dataset.carousel === 'materials') {
@@ -52,9 +39,5 @@
     const observer = new IntersectionObserver(entries => {visible = entries[0].isIntersecting;schedule();}, {threshold:.2});
     observer.observe(root);
     show(0);
-    stabilizeHeight();
-    document.fonts.ready.then(stabilizeHeight);
-    let resizeFrame;
-    window.addEventListener('resize',()=>{cancelAnimationFrame(resizeFrame);resizeFrame=requestAnimationFrame(stabilizeHeight);});
   });
 })();
