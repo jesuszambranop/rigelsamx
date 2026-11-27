@@ -59,3 +59,10 @@ Poppins Bold 700 y Regular 400 descargadas del repositorio oficial de Google Fon
 Datos técnicos contrastados con https://rigelsa.com/productos/m1?lang=es y https://rigelsa.com/productos/s70?lang=es el 26 de noviembre. Se incluyen las características físicas de los productos, sin trasladar garantías, colores disponibles ni contenido del kit entre mercados.
 
 Los textos y líneas guía de los mapas se guardan dentro de los SVG, con un único `viewBox` para geometría y etiquetas. Se elimina la etiqueta HTML superpuesta de Mérida.
+
+
+## Nuevas panorámicas, 27 de noviembre de 2026
+
+Fotografías suministradas por el propietario: `Impresión industrial nítida en botella de champú (1).png` y `Pouch crema con código negro sobre mesa.png`. Se convierten a `hero-shampoo-{960,1920}.webp` y `hero-pouch-{960,1920}.webp` conservando encuadre y proporción, sin modificar el producto ni los códigos. Sustituyen las imágenes de champú y vitamina de los dos primeros slides en ambos idiomas.
+
+El mapa de Latinoamérica mantiene sus contornos y etiquetas negras sin líneas guía: tamaño de etiqueta 25.2 unidades (70% de 36) y opacidad 0.6 exclusivamente en los seis países azules.

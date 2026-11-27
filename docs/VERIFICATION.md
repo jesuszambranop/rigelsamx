@@ -89,3 +89,13 @@ Pendiente únicamente en el hosting definitivo: configurar/verificar el transpor
 - Inglés móvil: tres selecciones correctas, 681.53 px. El carrusel de materiales conserva selección y enlace de consulta con el material correspondiente.
 - Se mantienen 6 segundos, indicadores circulares y ausencia de controles de pausa. Los recursos del carrusel llevan versión de caché.
 - Las comprobaciones se realizaron con la política de cPanel activa, sin permitir estilos inline.
+
+
+## Panorámicas y contacto, 27 de noviembre de 2026
+
+- Nuevas fotos de champú y pouch comprobadas visualmente en la portada. Párrafo del primer slide: «Ingresa la información e imprime en tu envase.»; el segundo habla de fechas y lotes claros y legibles. Ambos traducidos al inglés.
+- Las 36 páginas incluyen un único botón flotante de WhatsApp. Todos los bloques compartidos de cotización enlazan al número 529996351998 y abren con `noopener noreferrer`.
+- Animación CSS `whatsapp-nudge` y halo `whatsapp-halo`, ciclo de 7 segundos, pausa al hover/focus y desactivación con movimiento reducido. Estilos calculados comprobados en escritorio y móvil inglés.
+- SVG validado: seis países con fill-opacity 0.6, etiquetas negras de 25.2 unidades y ninguna línea guía. Comprobación visual en Quiénes somos.
+- Hero de escritorio: 540 px, tres slides comparten espacio, solo el activo visible y cero estilos inline. Vista móvil inglesa de 390 × 844: 651.22 px, sin desbordamiento horizontal. Se conserva la CSP de cPanel y la corrección del carrusel.
+- Build y comprobación: 36 páginas, 1.470 rutas locales correctas, JavaScript y git diff --check sin errores. No cambia el backend PHP.
