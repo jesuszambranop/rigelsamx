@@ -95,3 +95,10 @@ Todas las páginas, incluidas las versiones inglesas, tienen un botón fijo de W
 La medición JavaScript anterior modificaba estilos inline y, con la política CSP de cPanel, dejaba la primera diapositiva invisible y fuera del flujo, haciendo colapsar el bloque. Se sustituyó por CSS Grid: todas las diapositivas comparten celda y solo la activa es visible e interactiva. No se modifican estilos inline ni se debilita la CSP. La vista local carga la misma política desde `.htaccess`.
 
 `rigel.css` y `carousels.js` llevan versión de URL para evitar que se reutilice la copia antigua de caché. Se puede actualizar cPanel con el paquete completo o con un parche que contiene únicamente `index.html`, `en/index.html`, `assets/rigel.css` y `assets/carousels.js`.
+
+
+## Ajustes visuales del 27 de noviembre de 2026
+
+La portada utiliza las nuevas fotografías del propietario: champú en el primer slide y pouch en el segundo, con textos centrados en la codificación. El CTA compartido «Solicitar cotización» abre WhatsApp México. Las etiquetas del mapa de Latinoamérica quedan al 70% de su tamaño anterior y sus seis países destacados al 60% de opacidad. El botón flotante incorpora un movimiento breve y halo cada 7 segundos; se detiene al pasar el cursor o enfocar y respeta movimiento reducido.
+
+La actualización actual para cPanel se entrega como paquete completo, con las cuatro imágenes WebP nuevas, las páginas regeneradas y la hoja CSS versionada. El parche de cuatro archivos de la revisión anterior solo corresponde a la corrección del carrusel; no contiene estas nuevas fotografías.
