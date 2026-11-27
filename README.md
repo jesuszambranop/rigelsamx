@@ -23,7 +23,7 @@ Inicio, catálogo, M1, ficha técnica imprimible, S70, aplicaciones, servicio t�
 
 ## Diseño de Rigel
 
-Títulos en Poppins Bold (700), encabezados pequeños en Poppins Regular (400), párrafos en Inter Medium (500) y tamaños basados en Rigel Colombia. Portada con tres panorámicas y segundo carrusel con seis materiales: el titular y el párrafo permanecen fijos, solo cambian las fotografías. Los indicadores circulares permiten seleccionar y navegar con teclado. No hay controles de pausa. La portada avanza cada 6 segundos y materiales cada 5.5 segundos; se respeta movimiento reducido. La altura de la portada se estabiliza según el idioma y el ancho de pantalla.
+Títulos en Poppins Bold (700), encabezados pequeños en Poppins Regular (400), párrafos en Inter Medium (500) y tamaños basados en Rigel Colombia. Portada con tres panorámicas y segundo carrusel con seis materiales: el titular y el párrafo permanecen fijos, solo cambian las fotografías. Los indicadores circulares permiten seleccionar y navegar con teclado. No hay controles de pausa. La portada avanza cada 6 segundos y materiales cada 5.5 segundos; se respeta movimiento reducido. La altura de la portada la calcula CSS Grid con las tres diapositivas en la misma celda; los slides ocultos conservan el espacio y quedan fuera de la interacción.
 
 “Quiénes somos” reproduce el texto y directorio de Colombia con México primero y `https://rigelsa.com/mx/`. Los mapas usan siluetas continuas de Natural Earth, sin tramas de puntos. La portada incluye el mapa local de México y Mérida. El pie conserva su color oscuro y un mensaje sobre experiencia internacional y atención cercana, con los apartados y datos de Colombia adaptados a México.
 
@@ -89,3 +89,9 @@ Poppins Bold 700 sustituye Black en todos los títulos; los textos superiores de
 ## Contacto flotante
 
 Todas las páginas, incluidas las versiones inglesas, tienen un botón fijo de WhatsApp abajo a la derecha que abre el contacto de México (+52 999 635 1998). Es un enlace HTML accesible con icono local, sin depender de JavaScript. El bloque de cotización comienza directamente con «Hablemos de tu producto», sin texto superior, y tiene menor separación entre título y párrafo. Solo el título del bloque de soluciones está centrado; las descripciones están explícitamente alineadas a la izquierda.
+
+## Corrección de carrusel en cPanel, 27 de noviembre de 2026
+
+La medición JavaScript anterior modificaba estilos inline y, con la política CSP de cPanel, dejaba la primera diapositiva invisible y fuera del flujo, haciendo colapsar el bloque. Se sustituyó por CSS Grid: todas las diapositivas comparten celda y solo la activa es visible e interactiva. No se modifican estilos inline ni se debilita la CSP. La vista local carga la misma política desde `.htaccess`.
+
+`rigel.css` y `carousels.js` llevan versión de URL para evitar que se reutilice la copia antigua de caché. Se puede actualizar cPanel con el paquete completo o con un parche que contiene únicamente `index.html`, `en/index.html`, `assets/rigel.css` y `assets/carousels.js`.
