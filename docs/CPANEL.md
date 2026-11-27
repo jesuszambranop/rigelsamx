@@ -46,3 +46,9 @@ El límite predeterminado es 5 intentos por IP cada 15 minutos. Los contadores s
 Los CV pasan por el archivo temporal de PHP y se adjuntan al correo; no se conservan en una carpeta de uploads pública. Mantén la política interna de conservación de correos de RRHH. La información de privacidad debe revisarse y completarse por Rigel antes de su lanzamiento comercial, conforme a su operación real.
 
 Después de editar plantillas, vuelve a generar el HTML y sube los archivos cambiados. Los assets y estilos no dependen de un dominio codificado. Mantén el canonical en `site.config.mjs` acorde a la ubicación definitiva.
+
+## Parche del carrusel, 27 de noviembre de 2026
+
+Extraer el ZIP del parche directamente en `public_html/mx/` y aceptar reemplazar sus cuatro archivos: `index.html`, `en/index.html`, `assets/rigel.css`, `assets/carousels.js`. No contiene archivos PHP, configuración de correo ni `.htaccess`. Después recargar la página con Ctrl+F5. El HTML apunta a las versiones nuevas de CSS/JS para evitar la caché anterior.
+
+Como alternativa, el ZIP completo contiene la misma corrección. La CSP permanece intacta. La primera diapositiva ya no depende de medir ni restaurar estilos inline.

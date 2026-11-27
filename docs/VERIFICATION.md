@@ -1,6 +1,6 @@
 # Verificación de entrega
 
-Fecha de última revisión: 26 de noviembre de 2026.
+Fecha de última revisión: 27 de noviembre de 2026.
 
 - Generación: 36 páginas HTML (18 por idioma).
 - Revisión estática: 1.482 rutas locales, anclas, metadatos, idioma, imágenes y catálogo M1/S70 correctos.
@@ -79,3 +79,13 @@ Pendiente únicamente en el hosting definitivo: configurar/verificar el transpor
 - Botón flotante en las 36 páginas: contacto de México, icono local, etiqueta accesible en el idioma correspondiente y apertura con `noopener noreferrer`. Se oculta al imprimir.
 - Eliminado «Tu siguiente paso» y su equivalente inglés del bloque de cotización. Separación título/párrafo de 10 px e interlineado de párrafo de 1.5.
 - Título de soluciones centrado; nombres, párrafos y enlaces de producto alineados a la izquierda.
+
+## Regresión del carrusel con CSP de cPanel
+
+- Reproducido en `https://rigelsa.com/mx/` y en localhost sirviendo la CSP exacta de `.htaccess`: al seleccionar la primera diapositiva, quedaba con `visibility:hidden` y `position:absolute`, y el hero medía 0 px. El script servido en producción y el local tenían SHA256 idéntico.
+- Eliminada la medición JavaScript y todos sus estilos temporales. CSS Grid reserva el espacio de los tres slides; los inactivos usan `visibility:hidden`, `hidden` e `inert`.
+- Dos ciclos automáticos completos 1→2→0→1→2→0: seis muestras con altura 540 px, contenido visible y cero estilos inline.
+- Selección manual de los tres slides a 1732 y 1406 px: altura 540 px. A 760 px: 661.78 px. A 390 px: 681.53 px. Altura estable en cada ancho y sin desbordamiento.
+- Inglés móvil: tres selecciones correctas, 681.53 px. El carrusel de materiales conserva selección y enlace de consulta con el material correspondiente.
+- Se mantienen 6 segundos, indicadores circulares y ausencia de controles de pausa. Los recursos del carrusel llevan versión de caché.
+- Las comprobaciones se realizaron con la política de cPanel activa, sin permitir estilos inline.
