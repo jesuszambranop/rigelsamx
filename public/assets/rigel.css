@@ -129,6 +129,12 @@ table{border:0;font-size:16px}th,td{border:0;border-bottom:1px solid #dde5e9;pad
 .floating-whatsapp{position:fixed;right:calc(24px + env(safe-area-inset-right,0px));bottom:calc(24px + env(safe-area-inset-bottom,0px));z-index:45;display:grid;place-items:center;width:60px;height:60px;border:2px solid #fff;border-radius:50%;background:#25d366;box-shadow:0 5px 18px #102d3933;color:#fff}
 .floating-whatsapp:hover{background:#1ebe5d;color:#fff}
 .floating-whatsapp img{width:32px;height:32px}
+.floating-whatsapp{animation:whatsapp-nudge 7s ease-in-out infinite;transform-origin:center}
+.floating-whatsapp::before{content:"";position:absolute;inset:-4px;border:1px solid #25d366;border-radius:50%;opacity:0;pointer-events:none;animation:whatsapp-halo 7s ease-out infinite}
+.floating-whatsapp:hover,.floating-whatsapp:focus-visible,.floating-whatsapp:hover::before,.floating-whatsapp:focus-visible::before{animation-play-state:paused}
+@keyframes whatsapp-nudge{0%,78%,96%,100%{transform:translateY(0) rotate(0)}82%{transform:translateY(-4px) rotate(-3deg)}87%{transform:translateY(-2px) rotate(3deg)}92%{transform:translateY(-3px) rotate(0)}}
+@keyframes whatsapp-halo{0%,77%,100%{opacity:0;transform:scale(1)}79%{opacity:.45;transform:scale(1)}94%{opacity:0;transform:scale(1.35)}}
+@media(prefers-reduced-motion:reduce){.floating-whatsapp,.floating-whatsapp::before{animation:none}}
 @media(max-width:760px){.cta{padding-block:28px}.cta .button{margin-top:20px}.floating-whatsapp{right:calc(18px + env(safe-area-inset-right,0px));bottom:calc(18px + env(safe-area-inset-bottom,0px));width:56px;height:56px}}
 @media print{.floating-whatsapp{display:none}}
 
